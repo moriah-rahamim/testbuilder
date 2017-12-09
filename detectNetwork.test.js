@@ -320,4 +320,27 @@ describe('should support China UnionPay', function() {
 
 });
 
-describe('should support Switch')
+describe('should support Switch', function() {
+  var should = chai.should();
+
+  var prefixes = ['4903', '4905', '4911', '4936', '564182', '633110', '6333', '6759'];
+  var lengths = [16, 18, 19];
+  var cardNums = {
+    16: '1234567890123456',
+    18: '123456789012345678',
+    19: '1234567890123456789'
+  };
+
+  for(let i = 0; i < prefixes.length; i++) {
+    for(let j = 0; j < lengths.length; j++) {
+
+      let prefix = prefixes[i];
+      let cardNum = prefix + cardNums[lengths[j]].slice(prefix.length);
+
+      it('has a prefix of ' + prefix + ' and a length of ' + lengths[j], function() {
+        detectNetwork(cardNum).should.equal('Switch');
+      });
+    }
+  }
+
+});
