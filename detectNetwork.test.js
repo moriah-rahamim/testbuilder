@@ -285,5 +285,39 @@ describe('Maestro', function() {
   });
 });
 
-describe('should support China UnionPay')
+describe('should support China UnionPay', function() {
+  var should = chai.should();
+
+  var prefixes = [];
+  for(let i = 622126; i <= 622925; i++){
+    prefixes.push(i.toString());
+  }
+  for(let i = 624; i <= 626; i++){
+    prefixes.push(i.toString());
+  }
+  for(let i = 6282; i <= 6288; i++){
+    prefixes.push(i.toString());
+  }
+
+  var cardNums = {
+    16: '1234567890123456',
+    17: '12345678901234567',
+    18: '123456789012345678',
+    19: '1234567890123456789'
+  };
+
+  for(let i = 0; i < prefixes.length; i++) {
+    for(let j = 16; j <= 19; j++) {
+
+      let prefix = prefixes[i];
+      let cardNum = prefix + cardNums[j].slice(prefix.length);
+
+      it('has a prefix of ' + prefix + ' and a length of ' + j, function() {
+        detectNetwork(cardNum).should.equal('China UnionPay');
+      });
+    }
+  }
+
+});
+
 describe('should support Switch')
