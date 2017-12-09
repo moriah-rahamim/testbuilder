@@ -43,40 +43,29 @@ describe('Introduction to Mocha Tests - READ ME FIRST', function() {
 });
 
 describe('Diner\'s Club', function() {
-  // Be careful, tests can have bugs too...
+
+  var should = chai.should();
 
   it('has a prefix of 38 and a length of 14', function() {
-    // throw new Error('Delete me!');
  
-    if (detectNetwork('38345678901234') !== 'Diner\'s Club') {
-      throw new Error('Test failed');
-    }
+    detectNetwork('38345678901234').should.equal('Diner\'s Club');
   });
 
   it('has a prefix of 39 and a length of 14', function() {
-    if (detectNetwork('39345678901230') !== 'Diner\'s Club') {
-      throw new Error('Test failed');
-    }
- 
+    detectNetwork('39345678901230').should.equal('Diner\'s Club'); 
   });
 });
 
 describe('American Express', function() {
-  // It can get annoying to keep typing the if/throw, so here is a
-  // helper function to throw an error if the input statement isn't true. 
-  var assert = function(isTrue) {
-    if(!isTrue) {
-      throw new Error('Test failed');
-    }
- 
-  };
+
+  var should = chai.should();
 
   it('has a prefix of 34 and a length of 15', function() {
-    assert(detectNetwork('343456789012345') === 'American Express');
+    detectNetwork('343456789012345').should.equal('American Express');
   });
 
   it('has a prefix of 37 and a length of 15', function() {
-    assert(detectNetwork('373456789012345') === 'American Express');
+    detectNetwork('373456789012345').should.equal('American Express');
   });
 });
 
@@ -85,19 +74,19 @@ describe('Visa', function() {
   // Chai provides an assert that acts the same as our previous assert.
   // Search the documentation to figure out how to access it. 
   //   http://chaijs.com/
-  var assert = chai.assert;
+  var should = chai.should();
  
 
   it('has a prefix of 4 and a length of 13', function() {
-    assert(detectNetwork('4123456789012') === 'Visa');
+    detectNetwork('4123456789012').should.equal('Visa');
   });
 
   it('has a prefix of 4 and a length of 16', function() {
-    assert(detectNetwork('4123456789012345') === 'Visa');
+    detectNetwork('4123456789012345').should.equal('Visa');
   });
 
   it('has a prefix of 4 and a length of 19', function() {
-    assert(detectNetwork('4123456789012345678') === 'Visa');
+    detectNetwork('4123456789012345678').should.equal('Visa');
   });
 });
 
@@ -106,18 +95,18 @@ describe('MasterCard', function() {
   // Expect syntax is one way to do this, but there are others. 
   // If you want to know more, check out the documentation. 
   //   http://chaijs.com/api/bdd/
-  var expect = chai.expect;
+  var should = chai.should();
  
   it('has a prefix of 51 and a length of 16', function() {
-    expect(detectNetwork('5112345678901234')).to.equal('MasterCard');
+    detectNetwork('5112345678901234').should.equal('MasterCard');
   });
  
   it('has a prefix of 52 and a length of 16', function() {
-    expect(detectNetwork('5212345678901234')).to.equal('MasterCard');
+    detectNetwork('5212345678901234').should.equal('MasterCard');
   });
  
   it('has a prefix of 53 and a length of 16', function() {
-    expect(detectNetwork('5312345678901234')).to.equal('MasterCard');
+    detectNetwork('5312345678901234').should.equal('MasterCard');
   });
  
 
