@@ -8,7 +8,7 @@
 //   2. The number of digits in the number (called the length)
 
 // Return true if any of the prefixes are found at the beginning of cardNumber
-var prefixMatch = function(prefixes, cardNumber){
+var prefixMatch = function(prefixes, cardNumber) {
 
   for( let i = 0; i < prefixes.length; i++ ) {
 
@@ -30,7 +30,22 @@ var prefixMatch = function(prefixes, cardNumber){
   }
 
   return false;
-}
+};
+
+// var switchOrVisa = function(visaObj, switchObj, cardNumber) {
+
+//   var visaPrefixes = visaObj.prefixes;
+//   var visaLengths = visaObj.lengths;
+
+//   var switchPrefixes = switchObj.prefixes;
+//   var switchLengths = switchObj.lengths;
+
+//   // Switch always has a longer prefix, so favor switch over visa
+//   if ( prefixMatch(switchPrefixes, cardNumber) && switchLengths.indexOf(cardNumber.length ) >= 0 ){
+//     return Switch;
+//   } 
+
+// };
 
 var detectNetwork = function(cardNumber) {
   // Note: `cardNumber` will always be a string
@@ -65,6 +80,10 @@ var detectNetwork = function(cardNumber) {
     'China UnionPay': {
       prefixes: ['622126-622925', '624-626', '6282-6288'],
       lengths: [16, 17, 18, 19]
+    },
+    Switch: {
+      prefixes: ['4903', '4905', '4911', '4936', '564182', '633110', '6333', '6759'],
+      lengths: [16, 18, 19]
     }
   }
 
@@ -73,7 +92,17 @@ var detectNetwork = function(cardNumber) {
     let lengths = networks[network].lengths;
 
     if ( prefixMatch(prefixes, cardNumber) && lengths.indexOf(cardNumber.length) >= 0 ){
-      return network;
+
+      if(network === 'Visa'){
+        if (prefixMatch(networks.Switch.prefixes, cardNumber) && networks.Switch.lengths.indexOf(cardNumber.length) >= 0) {
+          return 'Switch';
+        } else {
+          return 'Visa';
+        }
+      } else {
+        return network;
+      }
+
     }
   }
 
