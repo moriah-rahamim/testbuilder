@@ -11,7 +11,20 @@
 var prefixMatch = function(prefixes, cardNumber){
 
   for( let i = 0; i < prefixes.length; i++ ) {
-    if(cardNumber.indexOf(prefixes[i]) === 0){
+
+    if(prefixes[i].indexOf('-') >= 0) {
+      // handle a range of prefixes with a hypthen in the middle
+      let endpoints = prefixes[i].split('-');
+      let start = endpoints[0];
+      let end = endpoints[1];
+
+      for(var j = parseInt(start); j <= parseInt(end); j++) {
+        if(cardNumber.indexOf(j.toString()) === 0){
+          return true;
+        }
+      }
+    } else if(cardNumber.indexOf(prefixes[i]) === 0){
+      // handle a single prefix
       return true;
     }
   }
@@ -42,12 +55,16 @@ var detectNetwork = function(cardNumber) {
       lengths: [16]
     },
     Discover: {
-      prefixes: ['6011', '644', '645', '646', '647', '648', '649', '65'],
+      prefixes: ['6011', '644-649', '65'],
       lengths: [16, 19]
     },
     Maestro: {
       prefixes: ['5018', '5020', '5038', '6304'],
       lengths: [12, 13, 14, 15, 16, 17, 18, 19]
+    },
+    'China UnionPay': {
+      prefixes: ['622126-622925', '624-626', '6282-6288'],
+      lengths: [16, 17, 18, 19]
     }
   }
 
