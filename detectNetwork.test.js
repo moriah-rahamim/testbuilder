@@ -94,9 +94,11 @@ addPrefixes(networks, 'China UnionPay', 6282, 6288);
 addPrefixes(networks, 'Discover', 644, 649);
 
 // Create base card numbers of various lengths
-var cardNums = {};
-for (let i = 10; i <= 20; i++) {
-  cardNums[i] = Math.floor(Math.random()*Math.pow(10, i)).toString();
+var cardNums = {
+  10: '1234567890',  
+};
+for (let i = 11; i <= 20; i++) {
+  cardNums[i] = cardNums[i-1] + Math.floor(Math.random()*10).toString();
 }
 
 // Run all the tests for a given network
